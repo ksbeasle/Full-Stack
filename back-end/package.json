@@ -1,0 +1,16 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Back end -- Nodejs, Express, Mongo",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [
+    "Mongo",
+    "Express",
+    "NodeJs"
+  ],
+  "author": "Kahlil Beasley",
+  "license": "ISC"
+}
