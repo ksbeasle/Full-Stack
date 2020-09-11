@@ -3,9 +3,13 @@ const mongoose = require('mongoose')
 const chalk = require('chalk')
 const morgan = require('morgan')
 const gameRouter = require('./routes/gameRoutes')
+const cors = require('cors')
 
 //App
 const app = express()
+
+//cors -- Used so the front end can recieve data without a network error
+app.use(cors())
 
 //Morgan middleware
 app.use(morgan('common'))
