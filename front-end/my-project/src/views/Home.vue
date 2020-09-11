@@ -1,20 +1,30 @@
 <template>
     <div>
        <h1>HOME</h1>
+       <h1>;eeql{{games}}</h1>
+       <h1 v-if="error">{{error}}</h1>
     </div>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
     
   data () {
     return {
-      
+      games: null,
+      error: null
     }
   },
   mounted(){
-    
+    console.log('mounted')
+    //'https://api.coindesk.com/v1/bpi/currentprice.json'
+    axios 
+      .get('http://localhost:3000/')
+      .then(response => (this.games = response)).catch((err) => {
+        this.error = err
+      })
+  
   }
 }
 </script>
