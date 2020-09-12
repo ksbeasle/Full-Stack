@@ -13,6 +13,7 @@ app.use(cors())
 
 //Morgan middleware
 app.use(morgan('common'))
+app.use(express.json())
 
 //Mongo User
 const user = process.env.MONGO_USER

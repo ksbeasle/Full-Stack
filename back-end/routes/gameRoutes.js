@@ -4,7 +4,7 @@ const gameController = require('../controller/gameController')
 let router = Router()
 
 router.get('/', gameController.all_get)
-
+router.put('/game/add', gameController.add_game)
 
 
 module.exports = router
