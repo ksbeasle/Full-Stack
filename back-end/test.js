@@ -1,19 +1,30 @@
 const assert = require('assert')
 const chai = require('chai')
+const chaiHttp = require('chai-http') 
 const db = require('./utils')
-const startServer = require('./app')
+const chalk = require('chalk')
+const app = require('./app')
+
+//const mongoose = require('mongoose')
 // const nock = require('nock')
 // const faker = require('faker')
 
-let expect = chai.expect
-let isTest = true
-console.log(startServer)
+chai.use(chaiHttp)
+const expect = chai.expect;
+/* Test gameRoutes */
 
-/* Routes Tests */
+describe('Test gameRoutes', () => {
 
-describe('Routes Tests', () => {
-
-    describe('GET: Should get all games inside the DB', () => {
-        
+    // after(() => {
+	// 	return stopServer();
+    // });
+    
+    it('GET: Should get all games inside the DB', async () => {
+        var result = await chai.request(app).get('/')
+            expect(result).to.have.status(200)
+            expect(result.body).to.be.a('array')
+            expect(result.body[0]).to.be.a('object')
+            expect(result.body[0]).to.include.keys('title', 'platform', 'genre', 'esrb', 'rating')
+            //done()
+        })
     })
-})

@@ -19,24 +19,11 @@ app.use(express.json())
 const user = process.env.mongoUser
 //Mongo Pass
 const pass = process.env.mongoPass
-//Connect to Mongo database 
-
-// mongoose.connect('', 
-// {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false,
-//     useCreateIndex: true
-// }).then(() => {
-//     app.listen(3000, () => {
-        
-//     })
-// }).catch((err) => {
-    
-// })
 
 //DB URI
 let uri = 'mongodb+srv://'+user+':'+pass+'@node.ut56y.mongodb.net/project-1-games?retryWrites=true&w=majority'
+
+let server
 
 //Start server
 async function startServer(URI){
@@ -49,27 +36,33 @@ async function startServer(URI){
                      useCreateIndex: true
                 }, (error) =>{
                     if(error){
-                        console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
+                        console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', error.message))
                     }else{
                         console.log(chalk.blueBright.bgBlack.bold.underline('Database connected!'))
                     }
                 })      
    } catch (err) {
     console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
+    process.exit(1)
    }
-   setTimeout(() => {
-       app.listen(3000, () => {
-        console.log(chalk.blueBright.bgBlack.bold.underline('Listening on port 3000!'))
-       })
-   }, 3000)
 }
+
+
+
 
 // Start the server
 startServer(uri)
 
-/* --- Routes --- */
+setTimeout(() => {
+    server = app.listen(3000, () => {
+     console.log(chalk.blueBright.bgBlack.bold.underline('Listening on port 3000!'))
+    })
+}, 3000)
 
+
+/* --- Routes --- */
 app.use(gameRouter)
 
 
-module.exports = startServer
+
+module.exports = app
