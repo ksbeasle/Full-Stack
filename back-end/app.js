@@ -35,55 +35,37 @@ const pass = process.env.mongoPass
     
 // })
 
+//DB URI
+let uri = 'mongodb+srv://'+user+':'+pass+'@node.ut56y.mongodb.net/project-1-games?retryWrites=true&w=majority'
+
 //Start server
-async function startServer(isTest){
-    try {
-        if(isTest){
-            await mongoose.connect('mongodb+srv://'+user+':'+pass+'@node.ut56y.mongodb.net/project-1-games-test?retryWrites=true&w=majority',
-        {
-             useNewUrlParser: true,
-             useUnifiedTopology: true,
-             useFindAndModify: false,
-             useCreateIndex: true
-        }, (error) =>{
-            if(error){
-                console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
-            }else{
-                console.log(chalk.blueBright.bgBlack.bold.underline('Test Database connected!'))
-            }
-        })
-        } else{
-            await mongoose.connect('mongodb+srv://'+user+':'+pass+'@node.ut56y.mongodb.net/project-1-games?retryWrites=true&w=majority',
-            {
-                 useNewUrlParser: true,
-                 useUnifiedTopology: true,
-                 useFindAndModify: false,
-                 useCreateIndex: true
-            }, (error) =>{
-                if(error){
-                    console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
-                }else{
-                    console.log(chalk.blueBright.bgBlack.bold.underline('Database connected!'))
-                }
-            })
-        }
-    }catch(err) {
-        console.log(err)
-        process.exit(1)
-    }
-    //This is getting called before the DB is created -- no bueno
-    try {
-        app.listen(3000, ()=>{
-            console.log(chalk.blueBright.bgBlack.bold.underline('Listening on port 3000!'))
-        })
-    } catch(err){
-        console.log(chalk.red.bgBlack.bold.underline('Error: ', err.message))
-    }
+async function startServer(URI){
+   try {
+            await mongoose.connect(URI,
+                {
+                     useNewUrlParser: true,
+                     useUnifiedTopology: true,
+                     useFindAndModify: false,
+                     useCreateIndex: true
+                }, (error) =>{
+                    if(error){
+                        console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
+                    }else{
+                        console.log(chalk.blueBright.bgBlack.bold.underline('Database connected!'))
+                    }
+                })      
+   } catch (err) {
+    console.log(chalk.red.bgBlack.bold.underline('Error connecting to DB: ', err.message))
+   }
+   setTimeout(() => {
+       app.listen(3000, () => {
+        console.log(chalk.blueBright.bgBlack.bold.underline('Listening on port 3000!'))
+       })
+   }, 3000)
 }
 
-// Start the server passing in false so we dont use the test database
-let isTest = false
-startServer(isTest)
+// Start the server
+startServer(uri)
 
 /* --- Routes --- */
 
