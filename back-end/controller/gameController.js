@@ -10,7 +10,7 @@ module.exports.all_get = (req, res) => {
             res.send(err.message)
             res.end()
         }
-        console.log(chalk.bgGreenBright.blue(games))
+      //  console.log(chalk.bgGreenBright.blue(games))
         res.send(games)
     }) 
 }
