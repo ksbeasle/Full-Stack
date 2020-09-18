@@ -62,14 +62,14 @@ module.exports.update_game = async (req, res) => {
 /* DELETE a single game based on the ID */
 module.exports.delete_game = async (req, res) => {
   let id = req.params.id
-  console.log(chalk.bgGray.blue(id))
+  // console.log(chalk.bgGray.blue(id))
   try{
     let deletedGame = await Game.findOneAndDelete(id)
     let noGameFound = await Game.findById(id)
     if(!noGameFound) {
       res.send('game removed successfully')
     }
-    res.send('')
+    res.status(200).send('Deleted')
   }catch (err) {
     console.log(err.message)
     res.send(err)
