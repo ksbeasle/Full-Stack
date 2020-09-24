@@ -1,7 +1,8 @@
 <template>
     <div>
        <h1>HOME</h1>
-       <h1>;eeql{{games}}</h1>
+       <!-- <h1>{{games}}</h1> -->
+       <li v-for="game in games" :key="game">{{ game  }}</li>
        <h1 v-if="error">{{error}}</h1>
     </div>
 </template>
